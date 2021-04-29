@@ -30,8 +30,6 @@ router.post("/", async function (req,res) {
 })
 
 router.delete('/:bookmarkId', async (req, res) => {
-	console.log('hello');
-	console.log(req.params.bookmarkId);
 	await Bookmark.destroy({
 		where: {
 			id: req.params.bookmarkId
@@ -42,13 +40,22 @@ router.delete('/:bookmarkId', async (req, res) => {
 })
 
 router.get('/edit/:bookmarkId', async (req, res) => {
-	console.log("Lantana's error")
 	const bookmarks = await Bookmark.findOne({
 		where: {
 			id: req.params.bookmarkId
 		}
 	})
 	res.render("pages/oneBookmark", { bookmark: bookmarks});
+})
+
+router.put('/:bookmarkId', async (req, res) => {
+	await Bookmark.update({ url: req.body.updateUrl }, {
+		where: {
+			id: req.params.bookmarkId
+		}
+	})
+	const bookmarks = await Bookmark.findAll();
+	res.render("pages/bookmarks", { bookmarks: bookmarks });
 })
 
 module.exports = router;

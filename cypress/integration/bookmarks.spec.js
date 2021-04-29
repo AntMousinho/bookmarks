@@ -27,9 +27,34 @@ describe("Bookmark page tests:", function(){
         cy.get('#delete-button-1').click()
         cy.contains('https://google.com').should('not.exist')
     })
-    it("Check for an update button", function() {
-        cy.get('#addForm').type('https://tobeEdited.co.uk')
-        cy.get('#addButton').click()
-        cy.get('#update-button-0').should('be.visible')
-    })
+
+	context.only('Update URL functionality', () => {
+		beforeEach(() => {
+			cy.get('#addForm').type('https://tobeEdited.co.uk')
+			cy.get('#addButton').click()
+		})
+
+		it("Check for an update button", function() {
+			cy.get('#update-button-0').should('be.visible')
+		})
+
+		it('navigates to bookmark edit page', () => {
+			cy.get('#update-button-0').click();
+			cy.url().should('include', '/edit/');
+		})
+
+		it('edit page displays correct stuff', () => {
+			cy.get('#update-button-0').click();
+			cy.contains('https://tobeEdited.co.uk');
+			cy.get('#update-text').should('be.visible');
+			cy.get('#update-button').should('have.value', 'Update');
+		})
+
+		it('Check that url is updated', () => {
+			cy.get('#update-button-0').click();
+			cy.get('#update-text').type('https://Edited.co.uk');
+			cy.get('#update-button').click();
+			cy.get('#bookmark-0').contains('https://Edited.co.uk');
+		})
+	})
 }) 

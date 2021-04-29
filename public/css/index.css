@@ -1,0 +1,11 @@
+h1 {
+	border: 2px solid blue;
+	color: darksalmon;
+}
+
+body {
+	border: 2px red solid;
+	display: flex;
+	align-items: center;
+	background-color: darkolivegreen;
+}
