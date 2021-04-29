@@ -13,7 +13,7 @@
 			<li id="bookmark-<%= index %>" >
 				<form action="/bookmarks/<%= bookmark.id %>?_method=DELETE" method="post">
 					<span><%= bookmark.url %></span>
-					<input id="delete-button-<%= index %>" type="submit" value="Delete">
+					<input class= "button" id="delete-button-<%= index %>" type="submit" value="Delete">
                     <a id="update-button-<%= index%>" href="/bookmarks/edit/<%= bookmark.id %>">Edit</a>
 				</form>
 			</li>
@@ -21,7 +21,7 @@
     </ul>
     <form action="/bookmarks" method="POST">
         <input id="addForm" type="text" name="url">
-        <input id="addButton" type="submit" value="Add">
+        <input class="button" id="addButton" type="submit" value="Add">
     </form>
 </body>
 </html>

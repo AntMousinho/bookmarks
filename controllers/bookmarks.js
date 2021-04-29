@@ -2,6 +2,8 @@ const express = require("express");
 let router = express.Router();
 
 const Bookmark = require('../models').bookmark
+router.use(express.static(__dirname + '/public'));
+
 
 router.get("/", async function (req, res) {
   const bookmarks = await Bookmark.findAll();
