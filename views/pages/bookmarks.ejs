@@ -13,6 +13,7 @@
 				<form action="/bookmarks/<%= bookmark.id %>?_method=DELETE" method="post">
 					<span><%= bookmark.url %></span>
 					<input id="delete-button-<%= index %>" type="submit" value="Delete">
+                    <a id="update-button-<%= index%>" href="/bookmarks/edit/<%= bookmark.id %>">Edit</a>
 				</form>
 			</li>
         <% }) %>

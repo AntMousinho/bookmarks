@@ -41,4 +41,14 @@ router.delete('/:bookmarkId', async (req, res) => {
 	res.render("pages/bookmarks", { bookmarks: bookmarks });
 })
 
+router.get('/edit/:bookmarkId', async (req, res) => {
+	console.log("Lantana's error")
+	const bookmarks = await Bookmark.findOne({
+		where: {
+			id: req.params.bookmarkId
+		}
+	})
+	res.render("pages/oneBookmark", { bookmark: bookmarks});
+})
+
 module.exports = router;
