@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"   href="css/index.css">
     <title>Document</title>
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
     <h1><%= bookmark.url %></h1>
     <form action="/bookmarks/<%= bookmark.id %>?_method=PUT" method="post">
 		<input type="text" name="updateUrl" id="update-text">
-        <input id="update-button" type="submit" value="Update">
+        <input id="update-button" class="button" type="submit" value="Update">
     </form>
 </body>
 </html>

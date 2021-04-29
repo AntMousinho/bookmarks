@@ -3,11 +3,15 @@
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, maximum-scale=1">
- <link rel="stylesheet" type="text/css"   href="css/index.css">
+ <link rel="stylesheet" type="text/css"   href="/css/index.css">
  <title>Bookmarks</title>
 </head>
 <body>
     <h1>Bookmarks</h1>
+	<form action="/bookmarks" method="POST">
+		<input id="addForm" type="text" name="url">
+		<input class="button" id="addButton" type="submit" value="Add">
+	</form>
     <ul>
         <% bookmarks.forEach((bookmark, index) => { %>
 			<li id="bookmark-<%= index %>" >
@@ -19,9 +23,5 @@
 			</li>
         <% }) %>
     </ul>
-    <form action="/bookmarks" method="POST">
-        <input id="addForm" type="text" name="url">
-        <input class="button" id="addButton" type="submit" value="Add">
-    </form>
 </body>
 </html>
