@@ -8,12 +8,14 @@
 <body>
     <h1>Bookmarks</h1>
     <ul>
-        <% for (var i = 0; i < Bookmarks.length ; i++) { %>
-            <form action="/bookmarks/<%= Bookmarks[i].id %>?_method=DELETE" method="POST">
-            <li id="bookmark-<%= i %>"" > <%= Bookmarks[i].url %> </li>
-                <input id="delete-button-<%= i %>" type="submit" value="Delete"/>
-            </form>
-        <% } %>
+        <% bookmarks.forEach((bookmark, index) => { %>
+			<li id="bookmark-<%= index %>" >
+				<form action="/bookmarks/<%= bookmark.id %>?_method=DELETE" method="post">
+					<span><%= bookmark.url %></span>
+					<input id="delete-button-<%= index %>" type="submit" value="Delete">
+				</form>
+			</li>
+        <% }) %>
     </ul>
     <form action="/bookmarks" method="POST">
         <input id="addForm" type="text" name="url">
