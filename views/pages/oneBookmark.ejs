@@ -13,5 +13,20 @@
 		<input type="text" name="updateUrl" id="update-text">
         <input id="update-button" class="button" type="submit" value="Update">
     </form>
+	<a href="/bookmarks">Homepage</a>
+	<form action="/bookmarks/edit/<%= bookmark.id %>" method="post">
+		<input id="comment-text" type="text" name="comment">
+		<input id="comment-submit" type="submit" value="Add Comment">
+	</form>
+	<ul id="comments">
+		<% comments.forEach((comment, index) => { %>
+			<li id="comment-<%= index %>">
+				<span><%= comment.text %></span>
+				<form action="/bookmarks/edit/<%= bookmark.id %>/<%= comment.id %>" method="post">
+					<input id="comment-0-delete" type="submit" value="Delete">
+				</form>
+			</li>
+		<% }) %> 
+	</ul>
 </body>
 </html>

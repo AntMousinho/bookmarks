@@ -28,7 +28,7 @@ describe("Bookmark page tests:", function(){
         cy.contains('https://google.com').should('not.exist')
     })
 
-	context.only('Update URL functionality', () => {
+	context('Update URL functionality', () => {
 		beforeEach(() => {
 			cy.get('#addForm').type('https://tobeEdited.co.uk')
 			cy.get('#addButton').click()
@@ -55,6 +55,33 @@ describe("Bookmark page tests:", function(){
 			cy.get('#update-text').type('https://Edited.co.uk');
 			cy.get('#update-button').click();
 			cy.get('#bookmark-0').contains('https://Edited.co.uk');
+		})
+	})
+
+	context.only('Comments section', () => {
+		beforeEach(() => {
+			cy.get('#addForm').type('https://AddCommentsToEdited.co.uk')
+			cy.get('#addButton').click()
+			cy.get('#update-button-0').click();
+		})
+
+		it('shows comment form', () => {
+			cy.get('#comment-text').should('be.visible');
+			cy.get('#comment-submit').should('have.value', 'Add Comment');
+		})
+
+		it('displays a new comment', () => {
+			cy.get('#comment-text').type('First Comment');
+			cy.get('#comment-submit').click();
+			cy.get('#comments').contains('First Comment');
+		})
+
+		it('can delete a comment', () => {
+			cy.get('#comment-text').type('First Comment');
+			cy.get('#comment-submit').click();
+			cy.get('#comment-0-delete').should('have.value', 'Delete');
+			cy.get('#comment-0-delete').click();
+			cy.get('#comment-0').should('not.exist');
 		})
 	})
 }) 

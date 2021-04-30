@@ -1,7 +1,8 @@
 const express = require("express");
 let router = express.Router();
 
-const Bookmark = require('../models').bookmark
+const Bookmark = require('../models').bookmark;
+const Comment = require('../models').Comment;
 
 router.get("/", async function (req, res) {
 	const bookmarks = await Bookmark.findAll();
@@ -9,7 +10,6 @@ router.get("/", async function (req, res) {
 });
 
 router.post("/", async function (req, res) {
-
 	await Bookmark.create(
 		{
 			url: req.body.url,
@@ -37,7 +37,14 @@ router.get('/edit/:bookmarkId', async (req, res) => {
 			id: req.params.bookmarkId
 		}
 	})
-	res.render("pages/oneBookmark", { bookmark: bookmarks });
+
+	const comments = await Comment.findAll({
+		where: {
+			bookmarkId: req.params.bookmarkId
+		}
+	})
+
+	res.render("pages/oneBookmark", { bookmark: bookmarks, comments: comments });
 })
 
 router.put('/:bookmarkId', async (req, res) => {
@@ -48,6 +55,28 @@ router.put('/:bookmarkId', async (req, res) => {
 	})
 	const bookmarks = await Bookmark.findAll();
 	res.render("pages/bookmarks", { bookmarks: bookmarks });
+})
+
+router.post('/edit/:bookmarkId', async (req, res) => {
+	await Comment.create({
+		text: req.body.comment,
+		bookmarkId: req.params.bookmarkId,
+		createdAt: new Date(),
+		updatedAt: new Date()
+	})
+
+	const comments = await Comment.findAll({
+		where: {
+			bookmarkId: req.params.bookmarkId
+		}
+	})
+
+	const bookmarks = await Bookmark.findOne({
+		where: {
+			id: req.params.bookmarkId
+		}
+	})
+	res.render("pages/oneBookmark", { bookmark: bookmarks, comments: comments });
 })
 
 module.exports = router;
