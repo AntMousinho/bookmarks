@@ -79,4 +79,24 @@ router.post('/edit/:bookmarkId', async (req, res) => {
 	res.render("pages/oneBookmark", { bookmark: bookmarks, comments: comments });
 })
 
+router.delete('/edit/comment/:bookmarkId/:commentId', async (req, res) => {
+	console.log("Hi")
+	await Comment.destroy({
+		where: {
+			id: req.params.commentId
+		}
+	})
+	const comments = await Comment.findAll({
+		where: {
+			bookmarkId: req.params.bookmarkId
+		}
+	})
+	const bookmarks = await Bookmark.findOne({
+		where: {
+			id: req.params.bookmarkId
+		}
+	})
+	res.render("pages/oneBookmark", { bookmark: bookmarks, comments: comments });
+})
+
 module.exports = router;

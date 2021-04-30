@@ -84,4 +84,20 @@ describe("Bookmark page tests:", function(){
 			cy.get('#comment-0').should('not.exist');
 		})
 	})
+	context.only('Tags section', () => {
+		beforeEach(() => {
+			cy.get('#addForm').type('https://AddCommentsToEdited.co.uk')
+			cy.get('#addButton').click()
+			cy.get('#update-button-0').click();
+		})
+		it('Shows a form for the tags', () => {
+			cy.get('#addTag').should('be.visible');
+			cy.get('#addTag-button').should('have.value', 'Add Tag');
+		})
+		it('can add a tag to the comment', () => {
+			cy.get('#addTag').type('First Tag');
+			cy.get('#addTag-button').click()
+			cy.get('#tags').contains('First Tag');
+		})
+	})
 }) 

@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
 	  bookmark.hasMany(models.Comment, {
 		  foreignKey: 'bookmarkId',
 	  })
+    bookmark.belongsToMany(models.Tag, {
+      through: "Bookmark_Tag",
+      as: "tags",
+      foreignKey: "bookmarkId",
+    });
+    
     }
   };
   bookmark.init({
